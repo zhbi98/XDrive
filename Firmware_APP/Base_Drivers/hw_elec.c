@@ -134,6 +134,7 @@ void REIN_HW_Elec_SetDivideElec(uint32_t divide, int32_t elec_ma)
 
 	//由整形数据获得DAC寄存器数据
 	uint32_t dac_reg = abs(elec_ma);								//电压电流关系为1:1(检流电阻为0.1欧)
+        // 将数据扩大 4096 倍 (dac_reg * 4096 * 4095 / 3300) / 4096) 其中 (4096 * 4095 / 3300) = 5083，右移 12 位，即除以 4096。
 	dac_reg = (uint32_t)(dac_reg * 5083) >> 12; 		//(dac_reg * 4095 / 3300)的变种
 	dac_reg = dac_reg & (0x00000FFF);								//(对4096取余)(向小取整)(舍弃符号位)
 	coil_a.dac_reg = (uint32_t)(dac_reg * abs(coil_a.sin_data)) >> sin_pi_m2_dpiybit;	//(--- / sin_1024_dpiy)的变种
