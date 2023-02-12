@@ -86,11 +86,11 @@ typedef struct{
 	//读取过程
 	CALI_State	state;					//校准状态
 	uint32_t		out_location;		//输出位置
-	#define			Gather_Quantity	16	//每个采集点采集数量
-	uint16_t		gather_count;												//采集计数
+	#define			Gather_Quantity	16	//每个采集点采集数量（在每个细分量点连续采集 16 个数据求解平均值作为该细分点的最终准确角度值）
+	uint16_t		gather_count;		//采集计数
 	uint16_t		coder_data_gather[Gather_Quantity];	//采集点每次数据
-	uint16_t 		coder_data_f[Move_Step_NUM+1];	//校准读取的数据
-	uint16_t 		coder_data_r[Move_Step_NUM+1];	//校准读取的数据
+	uint16_t 		coder_data_f[Move_Step_NUM+1];	//校准读取的数据(电机顺时针旋转采集的数据)
+	uint16_t 		coder_data_r[Move_Step_NUM+1];	//校准读取的数据(电机逆时针旋转采集的数据)
 	bool				dir;		//校准数据方向
 	//全段域校准过程数据
 	int32_t		rcd_x, rcd_y;			//寻找区间下标及阶跃差值
